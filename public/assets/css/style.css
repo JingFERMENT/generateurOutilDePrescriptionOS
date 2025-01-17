@@ -1,0 +1,34 @@
+:root {
+  --cabp-color: #2F8276;
+  --cabp-color-dark: #297066;
+}
+
+#img-form {
+  width: 70px;
+}
+
+.hidden,
+#formApporteurName {
+  display: none;
+}
+
+.bg-cabp:hover {
+  background-color: var(--cabp-color-dark);
+}
+
+.bg-cabp {
+  background-color: var(--cabp-color);
+}
+
+.fa-circle-info,
+.text-cabp {
+  color: var(--cabp-color);
+}
+
+.title {
+  font-weight: 700;
+}
+
+.projet-name {
+  font-size:35px;
+}
