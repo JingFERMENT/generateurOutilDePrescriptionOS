@@ -1,28 +1,26 @@
 # 🛠️ Générateur outil de prescription
 
-Le projet consiste à développer une application web pour une demande de lead, avec un formulaire de soumission, un récapitulatif par email et une interface d'administration pour gérer les informations de campagne et d'apporteur.
-
-## 👥 Public cible
-Administrateurs et utilisateurs internes.
+Le projet consiste à développer une application web pour une demande de lead (ou prospect), avec un formulaire de soumission, un récapitulatif par email et une interface d'administration pour gérer les informations de campagne et d'apporteur. 
+Cette application est destinée aux administreurs et utilisateurs internes.
 
 ---
 
 ## 🔧 Spécifications Techniques
 
-### 📋 2.1 Développement du Formulaire
+### 📋 1 Développement du formulaire 
 - Création d'un **template de formulaire** attaché à la combinaison du **code campagne** et du **code apporteur**.
 
-### ✉️ 2.2 Gestion de l'envoi de l'email récapitulatif
+### ✉️ 2 Gestion de l'envoi de l'email récapitulatif
 - Fonctionnalité pour l'envoi d'**emails contenant les informations** soumises via le formulaire.
 
-### 🖥️ 2.3 Création de l'Interface Administrateur
+### 🖥️ 3 Création de l'Interface Administrateur
 
 #### ⚙️ Fonctionnalités principales :
 - ➕ Créer des codes de campagnes et d'apporteurs.
 - ✏️ Modifier des codes de campagnes et d'apporteurs.
 - 🗑️ Supprimer des codes de campagnes et d'apporteurs.
 
-### 🖥️ 2.4 Enregistrement des informations (**logs**) pour l'audit et la sécurité
+### 🖥️ 4 Enregistrement des informations (**logs**) pour l'audit et la sécurité
 
 ---
 
@@ -39,10 +37,13 @@ Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, 
 1. Renommez le fichier `env.exemple` en `.env`.
 2. Renseignez les variables d'environnement appropriées (voir `env.exemple` pour les détails).
 
-## Étape 4 : Lancer le projet
+##  4️⃣ Étape 4 : Lancer le projet
 1. Assurez-vous que votre serveur local est configuré.
 2. Ouvrez le projet dans votre navigateur à l'URL locale configurée, par exemple :
    - `http://generateuroutildeprescriptionos.localhost`
+
+##  4️⃣ Étape 5 : Installer les dépendances via composer
+1. Installer monolog et phpdotenv 
 
 ### 🔐 Connexion
 #### 🛡️ Connexion Administrateur
