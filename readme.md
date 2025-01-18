@@ -1,17 +1,8 @@
 # 🛠️ Générateur outil de prescription
 
-## 🌟 Contexte
+Le projet consiste à développer une application web pour une demande de lead, avec un formulaire de soumission, un récapitulatif par email et une interface d'administration pour gérer les informations de campagne et d'apporteur.
 
-### 🏗️ Projet
-Création d'un générateur de liens pour le lead.
-
-### 🎯 Objectifs
-Développer une application web permettant :
-- ✅ La gestion des **codes de campagnes** et **apporteurs**.
-- ✅ L'envoi d'**emails récapitulatifs** pour le traitement des demandes.
-- ✅ L'enregistrement des informations (**logs**) pour surveiller l'application.
-
-### 👥 Public cible
+## 👥 Public cible
 Administrateurs et utilisateurs internes.
 
 ---
@@ -30,6 +21,8 @@ Administrateurs et utilisateurs internes.
 - ➕ Créer des codes de campagnes et d'apporteurs.
 - ✏️ Modifier des codes de campagnes et d'apporteurs.
 - 🗑️ Supprimer des codes de campagnes et d'apporteurs.
+
+### 🖥️ 2.4 Enregistrement des informations (**logs**) pour l'audit et la sécurité
 
 ---
 
