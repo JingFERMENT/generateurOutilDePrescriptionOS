@@ -1,5 +1,4 @@
 # Ignore configuration files
-config/init.php
 .env
 vendor
 logs/*

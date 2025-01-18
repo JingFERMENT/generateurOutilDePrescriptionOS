@@ -18,7 +18,7 @@ $router->addRoute('/addApporteur' ,'controllers/AddApporteurController.php');
 $router->addRoute('/addCampagne' ,'controllers/AddCampagneController.php');
 
 $router->addRoute('/modifyApporteur' ,'controllers/ModifyApporteurController.php');
-$router->addRoute('//modifyCampagne' ,'controllers/ModifyCampagneController.php');
+$router->addRoute('/modifyCampagne' ,'controllers/ModifyCampagneController.php');
 
 $router->addRoute('/deleteCampagne' ,'controllers/DeleteCampagneController.php');
 $router->addRoute('/deleteApporteur' ,'controllers/DeleteApporteurController.php');
