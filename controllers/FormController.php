@@ -3,7 +3,7 @@ require_once(__DIR__ . '/../config/autoload.php');
 
 class FormController extends AbstractController
 {
-    private $title = 'Formulaire';
+    private $title;
     private $campagnes;
     private $msg;
 

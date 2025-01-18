@@ -87,7 +87,7 @@ class AddApporteurController extends AbstractController
             $this->msg = 'L\'apporteur a bien été ajouté avec succès.';
             $_SESSION['msg'] = $this->msg;
 
-            header('Location:' . $_ENV['URL_PROD'] . '/controllers/ListApporteurController.php');
+            header('Location:' . $_ENV['URL_PROD'] . 'listApporteur');
             die;
         } else {
             $this->msg = 'Erreur, l\'apporteur n\'a pas été ajoutée. Veuillez réessayer.';

@@ -95,7 +95,7 @@ class ModifyCampagneController extends AbstractController {
                 $logManager = new LogManager();
                 $logManager->logModifyCode($codeCampagne, $_SESSION['username']);
 
-                header('Location:'.$_ENV['URL_PROD'].'/controllers/ListCampagneController.php');
+                header('Location:'.$_ENV['URL_PROD'].'listCampagne');
                 exit;
             } else {
                 $msg = 'Erreur, la modification n\'a pas été bien prise en compte.';

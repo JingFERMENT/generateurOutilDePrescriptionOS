@@ -57,7 +57,7 @@ class DeleteApporteurController extends AbstractController
     private function redirectWithMessage(string $msg): void
     {
         $_SESSION['msg'] = $msg;
-        header('Location:'.$_ENV['URL_PROD'].'/controllers/ListApporteurController.php');
+        header('Location:'.$_ENV['URL_PROD'].'listApporteur');
         die;
     }
 }

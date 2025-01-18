@@ -57,7 +57,7 @@ class DeleteCampagneController extends AbstractController
     private function redirectWithMessage(string $msg): void
     {
         $_SESSION['msg'] = $msg;
-        header('Location:'.$_ENV['URL_PROD'].'/controllers/ListCampagneController.php');
+        header('Location:'.$_ENV['URL_PROD'].'listCampagne');
         die;
     }
 }

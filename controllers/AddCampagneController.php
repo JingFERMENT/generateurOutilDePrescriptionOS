@@ -85,7 +85,7 @@ class AddCampagneController extends AbstractController{
             $logManager->logAddCode($codeCampagne, $_SESSION['username']);
             $this->msg = 'La campagne a bien été ajoutée avec succès.';
             $_SESSION['msg'] = $this->msg;
-            header('Location:'.$_ENV['URL_PROD'].'/controllers/ListCampagneController.php');
+            header('Location:'.$_ENV['URL_PROD'].'listCampagne');
             die;
         } else {
             $this->msg = 'Erreur, la campagne n\'a pas été ajoutée. Veuillez réessayer.';

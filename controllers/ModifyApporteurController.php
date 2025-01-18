@@ -89,7 +89,7 @@ class ModifyApporteurController extends AbstractController
                 $logManager = new LogManager();
                 $logManager->logModifyCode($codeApporteur, $_SESSION['username']);
 
-                header('Location:'.$_ENV['URL_PROD'].'/controllers/ListApporteurController.php');
+                header('Location:'.$_ENV['URL_PROD'].'listApporteur');
                 exit;
             } else {
                 $msg = 'Erreur, la modification n\'a pas été bien prise en compte.';
