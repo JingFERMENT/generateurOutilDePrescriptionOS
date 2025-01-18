@@ -5,30 +5,26 @@ require_once(__DIR__ . '/config/autoload.php');
 // Retrieve the URL requested by the user
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Handle the routes 
-$routes = [
-    '/' => 'controllers/SignupController.php',
-    '/logout' => 'controllers/LogOutController.php',
+// Create an instance of the Router
+$router = new Router();
 
-    '/listCampagne' => 'controllers/ListCampagneController.php',
-    '/listApporteur' => 'controllers/ListApporteurController.php',
+// Define routes
+$router->addRoute('/' ,'controllers/SignupController.php');
+$router->addRoute('/logout' ,'controllers/LogOutController.php');
 
-    '/addApporteur' => 'controllers/AddApporteurController.php',
-    '/addCampagne' => 'controllers/AddCampagneController.php',
+$router->addRoute('/listCampagne' ,'controllers/ListCampagneController.php');
+$router->addRoute('/listApporteur' ,'controllers/ListApporteurController.php');
 
-    '/modifyApporteur' => 'controllers/ModifyApporteurController.php',
-    '/modifyCampagne' => 'controllers/ModifyCampagneController.php',
-    
-    '/deleteCampagne' => 'controllers/DeleteCampagneController.php',
-    '/deleteApporteur' => 'controllers/DeleteApporteurController.php',
+$router->addRoute('/addApporteur' ,'controllers/AddApporteurController.php');
+$router->addRoute('/addCampagne' ,'controllers/AddCampagneController.php');
 
-    '/form' => 'controllers/FormController.php',
-];
+$router->addRoute('/modifyApporteur' ,'controllers/ModifyApporteurController.php');
+$router->addRoute('//modifyCampagne' ,'controllers/ModifyCampagneController.php');
 
-// Check if the URL matches a defined route
-if (array_key_exists($uri, $routes)) {
-    // Include the corresponding file
-    include $routes[$uri];
-} else {
-    include 'views/templates/404.php';
-}
+$router->addRoute('/deleteCampagne' ,'controllers/DeleteCampagneController.php');
+$router->addRoute('/deleteApporteur' ,'controllers/DeleteApporteurController.php');
+
+$router->addRoute('/form' ,'controllers/FormController.php');
+
+// Dispatch the current URI
+$router->dispatch($uri);
