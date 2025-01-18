@@ -36,25 +36,15 @@ Administrateurs et utilisateurs internes.
 ## 🚀 Installation et utilisation
 
 ### 1️⃣ Étape 1 : Cloner le projet
-Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, WAMP, LAMP, etc.) :
-```bash
-git clone https://github.com/JingFERMENT/generateurOutilDePrescriptionOS
+Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, WAMP, LAMP, etc.).
 
-## Étape 2 : Configurer la base de données
+##  2️⃣ Étape 2 : Configurer la base de données
 1. Créez une base de données vide nommée `generateurOutilDePrescription`.
 2. Importez le fichier `generateurOutilDePrescriptionOS.sql` inclus dans le projet pour initialiser la structure et les données.
 
-## Étape 3 : Configurer l'application
+##  3️⃣ Étape 3 : Configurer l'application
 1. Renommez le fichier `env.exemple` en `.env`.
-2. Renseignez les variables d'environnement appropriées (voir `env.exemple` pour les détails) :
-   - 🛠️ **Database connection** (Format DSN pour MySQL)
-   - 🔑 **LOGIN**
-   - 🔐 **PASSWORD**
-   - 🌐 **URL pour la production**
-   - 📧 **SMTP**
-   - 📮 **smtp_port**
-   - ✉️ **sender**
-   - 📩 **recipient**
+2. Renseignez les variables d'environnement appropriées (voir `env.exemple` pour les détails).
 
 ## Étape 4 : Lancer le projet
 1. Assurez-vous que votre serveur local est configuré.
