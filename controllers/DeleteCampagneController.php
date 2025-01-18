@@ -67,5 +67,5 @@ try {
     $deleteCampagneController = new DeleteCampagneController();
     $deleteCampagneController->handleRequest();
 } catch (\Throwable $th) {
-    echo "An error occurred: " . $th->getMessage();
+    echo "Une erreur est survenue: " . $th->getMessage();
 }

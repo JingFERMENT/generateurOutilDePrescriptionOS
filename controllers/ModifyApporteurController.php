@@ -73,8 +73,6 @@ class ModifyApporteurController extends AbstractController
             }
         }
         
-    
-
         if (empty($errors)) {
             
             $updatedApporteur = new Apporteur();

@@ -132,5 +132,5 @@ try {
     $addApporteurController = new addApporteurController();
     $addApporteurController->handleRequest();
 } catch (\Throwable $th) {
-    echo "An error occurred: " . $th->getMessage();
+    echo "Une erreur est survenue: " . $th->getMessage();
 }

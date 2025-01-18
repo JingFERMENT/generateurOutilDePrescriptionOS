@@ -31,5 +31,5 @@ try {
     $listApporteurController = new ListApporteurController();
     $listApporteurController->index();
 } catch (\Throwable $th) {
-    echo "An error occurred: " . $th->getMessage();
+    echo "Une erreur est survenue: " . $th->getMessage();
 }

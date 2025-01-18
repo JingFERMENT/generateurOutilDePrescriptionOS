@@ -8,7 +8,6 @@ class LeadDataManager
 {
     public static function send(LeadData $data)
     {
-        // configuration des en-têtes
         $headers[] = $_ENV['sender'];
 
         $data->infos = array_map(

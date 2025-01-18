@@ -1,5 +1,4 @@
 <?php 
-
 require_once(__DIR__ . '/config/autoload.php');
 
 // Retrieve the URL requested by the user
