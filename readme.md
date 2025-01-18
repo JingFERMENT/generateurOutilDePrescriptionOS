@@ -17,33 +17,50 @@ Cette application est destinée aux administreurs et utilisateurs internes.
 
 #### ⚙️ Fonctionnalités principales :
 - ➕ Créer des codes de campagnes et d'apporteurs.
-- ✏️ Modifier des codes de campagnes et d'apporteurs.
-- 🗑️ Supprimer des codes de campagnes et d'apporteurs.
+- ✏️ Modifier des codes de campagnes et d'apporteurs 
+- 🗑️ Supprimer des codes de campagnes et d'apporteurs
+- 📋 Saisir plusieurs codes apporteurs dans un champ dédié grâce à un système de multi-input interactif
 
 ### 🖥️ 4 Enregistrement des informations (**logs**) pour l'audit et la sécurité
 
 ---
 
-## 🚀 Installation et utilisation
+## 🚀 Installation et déploiement
+
+### ⚙️ Prérequis
+
+PHP installé.
+Un serveur web configuré (par exemple, Apache).
+Composer installé pour gérer les dépendances PHP.
+MySQL pour la gestion de la base de données.
+
+Pour vérifier si ces outils sont installés :
+PHP : php -v
+Composer : composer --version
+MySQL : Connectez-vous via mysql -u root -p.
 
 ### Étape 1 : Cloner le projet
 Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, WAMP, LAMP, etc.).
 
-##  Étape 2 : Configurer la base de données
+###  Étape 2 : Configurer la base de données
 1. Créez une base de données vide nommée `generateurOutilDePrescription`.
-2. Importez le fichier `generateurOutilDePrescriptionOS.sql` inclus dans le projet pour initialiser la structure et les données.
+2. Importez le fichier `generateurOutilDePrescriptionOS.sql` inclus dans le projet.
 
-##  Étape 3 : Configurer l'application
+###  Étape 3 : Configurer l'application
 1. Renommez le fichier `env.exemple` en `.env`.
-2. Renseignez les variables d'environnement appropriées (voir `env.exemple` pour les détails).
+2. Ouvrez le fichier .env et configurez les paramètres.
 
-##  Étape 4 : Lancer le projet
+###  Étape 4 : Installer les dépendances
+1. Installer les dépendances PHP via Composer 
+2. Ajouter les bibliothèques nécessaires 
+    - Monolog : composer require monolog/monolog
+    - phpdotenv : composer require vlucas/phpdotenv
+
+###  Étape 5 : Lancer l'application
 1. Assurez-vous que votre serveur local est configuré.
 2. Ouvrez le projet dans votre navigateur à l'URL locale configurée, par exemple :
    - `http://generateuroutildeprescriptionos.localhost`
 
-##  Étape 5 : Installer les dépendances via composer
-1. Installer monolog et phpdotenv 
 
 ## 🔐 Connexion
 ### 🛡️ Connexion Administrateur
@@ -55,3 +72,21 @@ Pour accéder à l'interface administrateur, utilisez les identifiants suivants 
 Pour accéder à l'interface utilisateur, utilisez les identifiants suivants :
 - Login : `C123457`
 - Mot de passe : `user-GOPOS`
+
+---
+
+## Stack technique
+Le projet utilise les technologies et outils suivants :
+
+### Backend :
+- PHP 8.3 : Langage principal pour le backend.
+- phpdotenv : Gestion des variables d'environnement.
+- Monolog : Gestion des logs.
+### Frontend :
+- JavaScript : Interactivité
+- Bootstrap: Design et structure.
+### Base de données :
+- MySQL : Stockage des données.
+### Développement et déploiement :
+- Composer : Gestion des dépendances PHP.
+- Apache: Serveur web.  
