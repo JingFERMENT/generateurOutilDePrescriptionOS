@@ -29,15 +29,10 @@ Cette application est destinée aux administreurs et utilisateurs internes.
 
 ### ⚙️ Prérequis
 
-PHP installé.
-Un serveur web configuré (par exemple, Apache).
-Composer installé pour gérer les dépendances PHP.
-MySQL pour la gestion de la base de données.
-
-Pour vérifier si ces outils sont installés :
-PHP : php -v
-Composer : composer --version
-MySQL : Connectez-vous via mysql -u root -p.
+- PHP installé.
+- Un serveur web configuré (par exemple, Apache).
+- Composer installé pour gérer les dépendances PHP.
+- MySQL pour la gestion de la base de données.
 
 ### Étape 1 : Cloner le projet
 Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, WAMP, LAMP, etc.).
@@ -75,18 +70,18 @@ Pour accéder à l'interface utilisateur, utilisez les identifiants suivants :
 
 ---
 
-## Stack technique
+## 🌟 Stack technique
 Le projet utilise les technologies et outils suivants :
 
-### Backend :
-- PHP 8.3 : Langage principal pour le backend.
-- phpdotenv : Gestion des variables d'environnement.
-- Monolog : Gestion des logs.
-### Frontend :
-- JavaScript : Interactivité
+### ⚙️ Backend :
+- PHP: Langage principal pour le backend.
+- phpdotenv: Gestion des variables d'environnement.
+- Monolog: Gestion des logs.
+### 🎨 Frontend :
+- Javascript: Interactivité.
 - Bootstrap: Design et structure.
-### Base de données :
-- MySQL : Stockage des données.
-### Développement et déploiement :
-- Composer : Gestion des dépendances PHP.
-- Apache: Serveur web.  
+### 🗄️ Base de données :
+- MySql Stockage des données.
+### 🚀 Développement et déploiement :
+- Composer: Gestion des dépendances PHP.
+- Apach: Serveur web
