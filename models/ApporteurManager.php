@@ -3,7 +3,12 @@ require_once(__DIR__.'/../config/autoload.php');
 
 class ApporteurManager {
 
-    public static function getAllCodesApporteur ()
+    /**
+     * Retrieves all apporteur codes from the database.
+     * 
+     * @return array List of apporteur codes.
+     */
+    public static function getAllCodesApporteur () :array
     {
         $pdo = DBConnect::getPDO();
         
@@ -17,7 +22,16 @@ class ApporteurManager {
         return $data;
     }
 
-    public static function getOneCodeApporteur ($code_apporteur)
+    /**
+     * 
+     * Retrieves a specific apporteur based on its code.
+     * 
+     * 
+     * @param string $code_apporteur
+     * 
+     * @return array array Apporteur information.
+     */
+    public static function getOneCodeApporteur (string $code_apporteur):array
     {
         $pdo = DBConnect::getPDO();
         
@@ -36,7 +50,15 @@ class ApporteurManager {
     }
 
 
-    public static function getIdApporteur ($code_apporteur)
+    /**
+     * 
+     * Retrieves the ID of an apporteur using its code.
+     * 
+     * @param string $code_apporteur
+     * 
+     * @return int ID of the apporteur.
+     */
+    public static function getIdApporteur (string $code_apporteur):int
     {
         $pdo = DBConnect::getPDO();
         
@@ -55,7 +77,15 @@ class ApporteurManager {
     }
 
     
-    public static function isExistCodeApporteur($code_apporteur): bool
+    /**
+     * 
+     * Checks if an apporteur code exists in the database.
+     * 
+     * @param string $code_apporteur
+     * 
+     * @return bool True if the code exists, False otherwise.
+     */
+    public static function isExistCodeApporteur(string $code_apporteur): bool
     {
 
         $pdo = DBConnect::getPDO();
@@ -73,7 +103,15 @@ class ApporteurManager {
         return $rowCount > 0;
     }
 
-    public static function isExistNomApporteur($nom_apporteur): bool
+    /**
+     * 
+     * Checks if an apporteur name exists in the database.
+     * 
+     * @param string $nom_apporteur
+     * 
+     * @return bool bool True if the name exists, False otherwise.
+     */
+    public static function isExistNomApporteur(string $nom_apporteur): bool
     {
 
         $pdo = DBConnect::getPDO();
@@ -92,7 +130,16 @@ class ApporteurManager {
     }
 
 
-    public static function addCodeApporteur($apporteur): bool 
+   
+    /**
+     * 
+     * Adds a new apporteur to the database.
+     * 
+     * @param object $apporteur
+     * 
+     * @return bool True if the insertion is successful, False otherwise.
+     */
+    public static function addCodeApporteur(object $apporteur): bool 
     {
 
         $pdo = DBConnect::getPDO();
@@ -114,7 +161,16 @@ class ApporteurManager {
 
     }
 
-    public static function getApporteurById($id_apporteur) : Apporteur
+    
+    /**
+     * 
+     * Retrieves an apporteur object by its ID.
+     * 
+     * @param int $id_apporteur
+     * 
+     * @return Apporteur
+     */
+    public static function getApporteurById(int $id_apporteur) : Apporteur
     {
         $pdo = DBConnect::getPDO();
 
@@ -146,6 +202,13 @@ class ApporteurManager {
     }
     
 
+    /**
+     * Updates an existing apporteur in the database.
+     * 
+     * @param Apporteur $updatedApporteur
+     * 
+     * @return bool True if the update is successful, False otherwise.
+     */
     public static function updatedApporteur(Apporteur $updatedApporteur): bool
     {
         $pdo = DBConnect::getPDO();
@@ -172,6 +235,14 @@ class ApporteurManager {
     }
 
 
+    /**
+     * 
+     * Deletes an apporteur and its associated records from the database.
+     * 
+     * @param int $id_apporteur
+     * 
+     * @return bool
+     */
     public static function deleteApporteur(int $id_apporteur):bool
     {
 

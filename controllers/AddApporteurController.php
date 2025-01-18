@@ -4,9 +4,9 @@ require_once(__DIR__ . '/../config/init.php');
 
 class AddApporteurController extends AbstractController
 {
-    private $title;
-    private $errors = [];
-    private $msg = '';
+    private string $title;
+    private array $errors = [];
+    private string $msg = '';
 
     public function __construct()
     {
@@ -43,7 +43,7 @@ class AddApporteurController extends AbstractController
     }
 
     // Validate the input data
-    private function validateForm($codeApporteur, $nomApporteur)
+    private function validateForm(string $codeApporteur, string $nomApporteur)
     {
 
         if (empty($codeApporteur)) {

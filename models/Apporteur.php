@@ -2,13 +2,13 @@
 
 class Apporteur {
 
-    private $id_apporteur;
-    private $code_apporteur;
-    private $nom_apporteur;
-    private $created_at;
-    private $modified_at;
+    private int $id_apporteur;
+    private string $code_apporteur;
+    private string $nom_apporteur;
+    private DateTime $created_at;
+    private DateTime $modified_at;
 
-    /****** CODE APPORTEUR  ******/ 
+    /****** ID APPORTEUR  ******/ 
     public function getIdApporteur()
     {
         return $this->id_apporteur;

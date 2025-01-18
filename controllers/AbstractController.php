@@ -1,8 +1,6 @@
 <?php
 
 abstract class AbstractController {
-    
-    // protected string $title;
 
     public function __construct()
     {

@@ -5,7 +5,8 @@ class CampagneManager
 {
 
     /**
-     * Récupérer tous les codes de campagne 
+     * Retrieve all campaigns from the database
+     * 
      * @return array
      */
     public static function getAllCodesCampagne(): array
@@ -23,8 +24,9 @@ class CampagneManager
     }
 
     /**
-     * Récupérer un code de campagne 
-     * @param Campagne $code_campagne
+     * Retrieve a specific campaign by its ID
+     * 
+     * @param int $id_campagne
      * 
      * @return Campagne
      */
@@ -58,10 +60,15 @@ class CampagneManager
     }
 
 
+    /**
+     * Add a new campaign and associate it with multiple apporteur codes
+     *
+     */
     public static function addCodeCampagne($campagne, $codesApporteurs)
     {
         $pdo = DBConnect::getPDO();
 
+        // Insert a new campaign into the database
         $sql = "INSERT INTO `campagne` (`code_campagne`, `nom_campagne`, `created_at`) VALUES (:code_campagne, :nom_campagne, NOW())";
 
         $sth = $pdo->prepare($sql);
@@ -77,6 +84,7 @@ class CampagneManager
 
         $campagneId = $pdo->lastInsertId();
 
+        // Link the campaign with apporteur codes
         $sql2 = "INSERT INTO `campagne_apporteur` (`id_campagne`, `id_apporteur`) VALUES (:id_campagne, :id_apporteur);";
 
         foreach ($codesApporteurs as $codeApporteur) {
@@ -96,14 +104,15 @@ class CampagneManager
         return true;
     }
 
+   
     /**
+     * Check if a campaign code exists in the database
      * 
-     * vérifier si le code de campagne existe
-     * @param Campagne $code_campagne
+     * @param string $code_campagne
      * 
      * @return bool
      */
-    public static function isExist($code_campagne): bool
+    public static function isExist(string $code_campagne): bool
     {
 
         $pdo = DBConnect::getPDO();
@@ -121,14 +130,14 @@ class CampagneManager
         return $rowCount > 0;
     }
 
-     /**
+    /**
+     * Check if a campaign ID exists in the database
      * 
-     * vérifier si le code de campagne existe
-     * @param Campagne $code_campagne
+     * @param int $idCampagne
      * 
      * @return bool
      */
-    public static function isExistIdCampagne($idCampagne): bool
+    public static function isExistIdCampagne(int $idCampagne): bool
     {
 
         $pdo = DBConnect::getPDO();
@@ -146,15 +155,15 @@ class CampagneManager
         return $rowCount > 0;
     }
 
+  
     /**
+     * Get all apporteur codes associated with a specific campaign ID
      * 
-     * Méthode permet de récupérer tous les codes d'apporteurs d'un code campagne 
-     * 
-     * @param mixed $code_campagne
+     * @param int $id_campagne
      * 
      * @return array
      */
-    public static function getAllCodesApporteurByCodeCampagne($id_campagne): array
+    public static function getAllCodesApporteurByCodeCampagne(int $id_campagne): array
     {
         $pdo = DBConnect::getPDO();
 
@@ -177,7 +186,14 @@ class CampagneManager
         return $data;
     }
 
-    public static function getAllApporteurByCodeCampagne($id_campagne): array
+    /**
+     * Get all informations about apporteurs with a specific campaign ID
+     * 
+     * @param string $id_campagne
+     * 
+     * @return array
+     */
+    public static function getAllApporteurByCodeCampagne(string $id_campagne): array
     {
         $pdo = DBConnect::getPDO();
 
@@ -200,9 +216,9 @@ class CampagneManager
         return $data;
     }
 
+  
     /**
-     * 
-     * Méthode pour récupérer toutes les codes apporteurs disponibles 
+     * Get all code apporteurs without duplicate
      * 
      * @return array
      */
@@ -221,16 +237,12 @@ class CampagneManager
         return $data;
     }
 
-    /**
-     * 
-     * Méthode pour mettre à jour le code campagne / le nom campagne / les codes apporteurs
-     * 
-     * @return bool
-     */
+   
     public function updateCodeCampagne($campagne, $idApporteurs): bool
     {
         $pdo = DBConnect::getPDO();
 
+        // Update the existing 'campagne' record with the new data
         $sql = "UPDATE `campagne` SET 
          `code_campagne` =:code_campagne,
          `nom_campagne` =:nom_campagne,
@@ -248,9 +260,10 @@ class CampagneManager
             throw new Exception('Erreur lors de l\'enregistrement de la campagne.');
         }
 
+        // If new apporteurs are provided, update their relationships with the campaign
         if (!empty($idApporteurs)) {
      
-            // supprimer les relations existantes
+            /// Step 1: Delete existing relationships for the campaign
                 $sql2 = "DELETE FROM `campagne_apporteur` 
                     WHERE `id_campagne` = :id_campagne;";
 
@@ -264,7 +277,7 @@ class CampagneManager
                     throw new Exception('Erreur lors de l\'enregistrement des apporteurs.');
                 }
 
-            // insérer les nouvelles relations
+            // Step 2: Insert the new relationships into the 'campagne_apporteur' table
             $sql3 = "INSERT INTO `campagne_apporteur` (`id_campagne`, `id_apporteur`) VALUES (:id_campagne, :id_apporteur);";
 
             foreach ($idApporteurs as $idApporteur) {
@@ -280,9 +293,9 @@ class CampagneManager
                     throw new Exception('Erreur lors de l\'enregistrement du lien entre le code de campagne et d\'apporteur');
                 }
             }
-            // quand il n'y a pas de id apporteur choisi 
+            
         } else {
-
+            // If no apporteurs are selected, delete all existing relationships
             $sql4 = "DELETE FROM `campagne_apporteur` 
                     WHERE `id_campagne` = :id_campagne;";
 
@@ -302,9 +315,12 @@ class CampagneManager
     }
 
 
+    
     /**
      * 
-     * Méthode pour supprimer le code campagne / le nom campagne / les codes apporteurs
+     * Deletes a campaign and its associated apporteur relationships.
+     * 
+     * @param int $id_campagne
      * 
      * @return bool
      */
@@ -313,7 +329,7 @@ class CampagneManager
 
         $pdo = DBConnect::getPDO();
 
-        // Étape 1 : Supprimer d'abord dans la table enfant 'campagne_apporteur'
+        // Step 1: Delete the relationships in the 'campagne_apporteur' table (table child first)
         $sql = 'DELETE FROM `campagne_apporteur` WHERE `id_campagne` =:id_campagne;';
 
         $sth = $pdo->prepare($sql);
@@ -326,7 +342,7 @@ class CampagneManager
             throw new Exception('Erreur lors de la suppression des enregistrements dans campagne_apporteur.');
         }
 
-        // Étape 2 : Supprimer dans la table parent 'campagne'
+        // Step 2: Delete the campaign from the 'campagne' table
         $sql2 = 'DELETE FROM `campagne` WHERE `id_campagne` =:id_campagne;';
 
         $sth2 = $pdo->prepare($sql2);

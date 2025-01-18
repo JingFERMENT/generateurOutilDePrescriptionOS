@@ -1,11 +1,11 @@
 <?php
 
 class Campagne {
-    private $id_campagne;
-    private $code_campagne;
-    private $nom_campagne;
-    private $created_at;
-    private $modified_at;
+    private int $id_campagne;
+    private string $code_campagne;
+    private string $nom_campagne;
+    private DateTime $created_at;
+    private DateTime $modified_at;
 
     /****** ID CAMPAGNE  ******/ 
     public function getIdCampagne()
