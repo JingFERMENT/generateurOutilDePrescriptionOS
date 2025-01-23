@@ -1,8 +1,9 @@
 <?php
-require_once(__DIR__.'/../config/autoload.php');
+require_once(__DIR__ . '/../config/autoload.php');
 require_once(__DIR__ . '/../config/init.php');
 
-class AddCampagneController extends AbstractController{
+class AddCampagneController extends AbstractController
+{
 
     private $title;
     private $errors = [];
@@ -18,32 +19,52 @@ class AddCampagneController extends AbstractController{
 
     public function handleRequest()
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->processForm();
-        } 
+        $processFormResult = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $processFormResult = $this->processForm();
+        }
 
         $allApporteurs = CampagneManager::getAllCodesApporteurs();
-        $this->renderView(['allApporteurs' => $allApporteurs]);
-        
+        $dataForRenderView = ['allApporteurs' => $allApporteurs] + $processFormResult;
+
+        $this->renderView($dataForRenderView);
     }
 
-    private function processForm()
+    private function processForm(): array
     {
         $codeCampagne = filter_input(INPUT_POST, 'code_campagne', FILTER_SANITIZE_SPECIAL_CHARS);
         $nomCampagne = filter_input(INPUT_POST, 'nom_campagne', FILTER_SANITIZE_SPECIAL_CHARS);
-        $codesApporteurs = filter_input(INPUT_POST, 'codes_apporteurs', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
+        $codesApporteurs = filter_input(INPUT_POST, 'apporteurs', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
 
 
         $this->validateForm($codeCampagne, $nomCampagne, $codesApporteurs);
 
         if (empty($this->errors)) {
-            $this->addCampagne($codeCampagne, $nomCampagne, $codesApporteurs);
+
+            $idApporteursArray = [];
+
+            if (!empty($codesApporteurs)) {
+                foreach ($codesApporteurs as $key => $codeApporteur) {
+                    $idApporteur = ApporteurManager::getIdApporteur($codeApporteur);
+                    $idApporteursArray[$key] = $idApporteur;
+                }
+            }
+
+            $this->addCampagne($codeCampagne, $nomCampagne, $idApporteursArray);
         }
+
+        $result = [
+            'codeCampagne' => $codeCampagne,
+            'nomCampagne' => $nomCampagne
+        ];
+        return $result;
     }
 
     private function validateForm($codeCampagne, $nomCampagne, $codesApporteurs)
     {
         $isExistDuplicate = CampagneManager::isExist($codeCampagne);
+
+
         if (empty($codeCampagne)) {
             $this->errors['code_campagne'] = 'Le code de campagne est obligatoire.';
         } else {
@@ -56,36 +77,48 @@ class AddCampagneController extends AbstractController{
                 }
             }
         }
-        
+
 
         if (empty($nomCampagne)) {
             $this->errors['nom_campagne'] = 'Le nom de campagne est obligatoire.';
         }
 
-        if (!empty($codesApporteurs)) {
-            $codesApporteursArray = ApporteurManager::getAllCodesApporteur();
-            foreach ($codesApporteurs as $codeApporteur) {
-                if (!in_array($codeApporteur, $codesApporteursArray)) {
-                    $error['code_apporteur'] = 'Votre choix est invalide';
-                }
-            }
-        }
+
+
+        // if (!empty($codesApporteurs)) {
+
+
+            
+        //     $codesApporteursArray = ApporteurManager::getAllCodesApporteur();
+
+        //     // Extract the `code_apporteur` values into a separate array
+        //     $codesApporteursValues = array_map(function ($apporteur) {
+        //         return $apporteur->code_apporteur;
+        //     }, $codesApporteursArray);
+
+        //     foreach ($codesApporteurs as $key => $codeApporteur) {    
+        //         if (!in_array($codeApporteur, $codesApporteursValues)) {  
+        //             $this->errors['code_apporteur'] = 'Votre choix est invalide!';
+        //         }
+        //     }
+        // }
     }
 
-    private function addCampagne($codeCampagne, $nomCampagne, $codesApporteurs)
+    private function addCampagne($codeCampagne, $nomCampagne, $idApporteursArray)
     {
         $campagne = new Campagne();
         $campagne->setCode_campagne($codeCampagne);
         $campagne->setNom_campagne($nomCampagne);
 
-        $addCodeCampagne = CampagneManager::addCodeCampagne($campagne, $codesApporteurs);
+
+        $addCodeCampagne = CampagneManager::addCodeCampagne($campagne, $idApporteursArray);
 
         if ($addCodeCampagne) {
             $logManager = new LogManager();
             $logManager->logAddCode($codeCampagne, $_SESSION['username']);
             $this->msg = 'La campagne a bien été ajoutée avec succès.';
             $_SESSION['msg'] = $this->msg;
-            header('Location:'.$_ENV['URL_PROD'].'listCampagne');
+            header('Location:' . $_ENV['URL_PROD'] . 'listCampagne');
             die;
         } else {
             $this->msg = 'Erreur, la campagne n\'a pas été ajoutée. Veuillez réessayer.';
@@ -95,6 +128,7 @@ class AddCampagneController extends AbstractController{
     private function renderView($data)
     {
         extract($data);
+
         $addCampagneController = $this;
         include __DIR__ . '/../views/templates/header.php';
         include __DIR__ . '/../views/addCampagne.php';

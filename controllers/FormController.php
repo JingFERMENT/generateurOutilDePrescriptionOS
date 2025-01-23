@@ -157,7 +157,7 @@ class FormController extends AbstractController
             $this->msg = "Votre demande a bien été prise en compte.";
 
             $_SESSION['msg'] = $this->msg;
-
+            
             $logManager = new LogManager();
             $recipient = $_ENV['recipient'];
             $logManager->logMailSent($recipient, $_SESSION['username']);
@@ -166,7 +166,7 @@ class FormController extends AbstractController
         }
 
         header('Location:' . $_ENV['URL_PROD'] . 'form');
-        die;
+        exit;
     }
 
     private function renderView(array $data = [])
@@ -174,9 +174,15 @@ class FormController extends AbstractController
         extract($data);
         $formController = $this;
 
+       $msg = null ;
+        if (isset($_SESSION['msg'])) {
+            $msg = $_SESSION['msg']; 
+            unset($_SESSION['msg']);
+        }
         include __DIR__ . '/../views/templates/header.php';
         include __DIR__ . '/../views/form.php';
         include __DIR__ . '/../views/templates/footer.php';
+ 
     }
 
     /**

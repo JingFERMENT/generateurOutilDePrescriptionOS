@@ -2,7 +2,7 @@
     <div class="p-5">
         <h1 class="text-center"><?= $addCampagneController->getTitle() ?></h1>
         <span class="text-success fw-bold"><?= $addCampagneController->getMsg() ?? '' ?></span>
-        <form method="POST">
+        <form method="POST" id="addForm" novalidate>
             <!-- CODE DE CAMPAGNE-->
             <div class="mt-5">
                 <label for="code_campagne" class="form-label fw-bold">Code de campagne <span class="text-danger">*<span></label>
@@ -34,7 +34,7 @@
                 </multi-input>
             </div>
             <!-- BOUTON VALIDATION -->
-            <button type="submit" class="btn bg-cabp text-white mt-3" value="Ajouter">Ajouter</button>
+            <button type="submit" id="Ajouter" class="btn bg-cabp text-white mt-3" value="Ajouter">Ajouter</button>
         </form>
     </div>
 </div>

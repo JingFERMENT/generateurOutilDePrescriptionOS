@@ -1,7 +1,7 @@
 <!-- FORMULAIRE POUR LE CONSEILLER COMMERCIAL -->
     <form class="row" method="POST">
         <h1 class="text-center"><?=$this->getTitle()?></h1>
-        <span class="fw-bold text-success text-center"><?=$_SESSION['msg'] ?? ''?></span>
+        <span class="fw-bold text-success text-center"><?=$msg ?? ''?></span>
         <div class="my-3">
             <!-- ID part-->
             <label for="id_part" class="form-label title">Identifiant partenaire<span class="text-danger">*</span></label>

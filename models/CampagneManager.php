@@ -64,7 +64,7 @@ class CampagneManager
      * Add a new campaign and associate it with multiple apporteur codes
      *
      */
-    public static function addCodeCampagne($campagne, $codesApporteurs)
+    public static function addCodeCampagne($campagne, $idApporteurs)
     {
         $pdo = DBConnect::getPDO();
 
@@ -87,12 +87,12 @@ class CampagneManager
         // Link the campaign with apporteur codes
         $sql2 = "INSERT INTO `campagne_apporteur` (`id_campagne`, `id_apporteur`) VALUES (:id_campagne, :id_apporteur);";
 
-        foreach ($codesApporteurs as $codeApporteur) {
+        foreach ($idApporteurs as $idApporteur) {
 
             $sth2 = $pdo->prepare($sql2);
 
             $sth2->bindValue(':id_campagne', $campagneId, PDO::PARAM_INT);
-            $sth2->bindValue(':id_apporteur', $codeApporteur,PDO::PARAM_INT);
+            $sth2->bindValue(':id_apporteur', $idApporteur,PDO::PARAM_INT);
 
             $sth2->execute();
 

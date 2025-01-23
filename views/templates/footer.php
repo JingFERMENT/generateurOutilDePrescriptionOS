@@ -17,7 +17,12 @@
                 <?php } ?>
                 <?php if (isset($modifyCampagneController) || isset($addCampagneController) ) { ?>
                     <script src="/public/assets/js/multi-input.js"></script>
-                    <script src="/public/assets/js/input-apporteur.js"></script>
+                <?php } ?>
+                <?php if (isset($modifyCampagneController) ) { ?>
+                    <script src="/public/assets/js/input-modify-campagne.js"></script>
+                <?php } ?>
+                <?php if (isset($addCampagneController) ) { ?>
+                    <script src="/public/assets/js/input-add-campagne.js"></script>
                 <?php } ?>
                 <?php if(isset($formController)){?>
                     <script src="/public/assets/js/form.js"></script>

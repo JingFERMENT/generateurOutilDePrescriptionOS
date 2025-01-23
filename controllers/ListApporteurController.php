@@ -11,6 +11,7 @@ class ListApporteurController {
         
         Auth::verifyIsConnected();
         
+        $msg = null ;
         // Handle session message if available
         if(isset($_SESSION['msg']) ){
             $msg = $_SESSION['msg'];
