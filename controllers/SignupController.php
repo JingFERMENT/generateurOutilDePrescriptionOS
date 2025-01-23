@@ -51,7 +51,7 @@ class SignupController
         if (empty($errors)) {
             $this->attemptLogin($matricule, $password);
         } else {
-            $this->renderView(compact('errors'));
+            $this->renderView(compact('errors', 'matricule'));
         }
     }
 
@@ -83,7 +83,7 @@ class SignupController
 
         // Handle invalid credentials
         $this->errormsg = "Matricule ou mot de passe incorrect";
-        $this->renderView();
+        $this->renderView(['matricule' => $matricule, 'errormsg' => $this->errormsg]);
     }
 
     private function renderView($data = [])

@@ -2,7 +2,7 @@
     <div class="p-5">
         <h1 class="text-center"><?=$addApporteurController->getTitle()?></h1>
         <span class="text-success fw-bold"><?=$addApporteurController->getMsg() ?? '' ?></span>
-        <form method="POST">
+        <form method="POST" novalidate>
             <!-- Add "code apporteur" -->
             <div class="mt-5">
                 <label for="code_apporteur" class="form-label fw-bold">Code d'apporteur <span class="text-danger">*<span></label>

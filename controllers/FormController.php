@@ -58,6 +58,7 @@ class FormController extends AbstractController
             $errors
         );
 
+        
         $codeApporteur = $this->validateCodeApporteur(
             filter_input(INPUT_POST, 'code_apporteur', FILTER_SANITIZE_SPECIAL_CHARS),
             $idCampagne,
@@ -110,28 +111,38 @@ class FormController extends AbstractController
      */
     private function validateIdCampagne($idCampagne, &$errors)
     {
-        $idCampagne = intval($idCampagne);
+       
+       
         if (empty($idCampagne)) {
             $errors['nom_campagne'] = 'Ce champ est obligatoire';
-        } else if (!CampagneManager::isExistIdCampagne($idCampagne)) {
+            return null;
+        } 
+        
+        if (!CampagneManager::isExistIdCampagne($idCampagne)) {
             $errors['nom_campagne'] = 'Votre choix est invalide';
-        } else {
-            $campagne = CampagneManager::getCodeCampagneById($idCampagne);
-            return $campagne->getCode_Campagne();
-        }
-        return null;
+            return null;
+        } 
+        
+        $campagne = CampagneManager::getCodeCampagneById($idCampagne);
+        return $campagne->getCode_Campagne();
+        
+       
     }
 
     private function validateCodeApporteur($codeApporteur, $idCampagne, &$errors)
     {
 
-        $apporteurs = CampagneManager::getAllApporteurByCodeCampagne($idCampagne);
-
-        if (empty($codeApporteur) && count($apporteurs) > 1) {
-            $errors['code_apporteur'] = 'Veuillez sélectionner un apporteur';
+        if(empty($idCampagne)) {
+            $errors['nom_campagne'] = 'Veuillez sélectionner un modif de la demande.';
+        } else {
+            $apporteurs = CampagneManager::getAllApporteurByCodeCampagne($idCampagne);
+         
+            if (empty($codeApporteur) && (count($apporteurs) ===0 )) {
+                $errors['code_apporteur'] = 'Veuillez sélectionner un nom d\'apporteur';
+            }
+            return $codeApporteur;
         }
-
-        return $codeApporteur;
+        
     }
 
     private function validateInfos($infos, &$errors)

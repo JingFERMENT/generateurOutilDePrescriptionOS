@@ -78,17 +78,11 @@ class AddCampagneController extends AbstractController
             }
         }
 
-
         if (empty($nomCampagne)) {
             $this->errors['nom_campagne'] = 'Le nom de campagne est obligatoire.';
         }
 
-
-
-        // if (!empty($codesApporteurs)) {
-
-
-            
+        // if (!empty($codesApporteurs)) {   
         //     $codesApporteursArray = ApporteurManager::getAllCodesApporteur();
 
         //     // Extract the `code_apporteur` values into a separate array

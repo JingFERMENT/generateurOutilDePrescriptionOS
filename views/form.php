@@ -1,5 +1,5 @@
 <!-- FORMULAIRE POUR LE CONSEILLER COMMERCIAL -->
-    <form class="row" method="POST">
+    <form class="row" method="POST" novalidate>
         <h1 class="text-center"><?=$this->getTitle()?></h1>
         <span class="fw-bold text-success text-center"><?=$msg ?? ''?></span>
         <div class="my-3">
