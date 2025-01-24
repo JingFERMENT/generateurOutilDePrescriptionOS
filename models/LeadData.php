@@ -2,9 +2,9 @@
 
 class LeadData
 {
-    public $id_part;
-    public $code_campagne;
-    public $code_apporteur;
-    public $infos = [];
-    public $matricule;
+    public int $id_part;
+    public string $code_campagne;
+    public string $code_apporteur;
+    public array $infos = [];
+    public string $matricule;
 }

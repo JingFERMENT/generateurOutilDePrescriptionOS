@@ -59,6 +59,35 @@ class CampagneManager
         }
     }
 
+    public static function getCampagneById(string $code_campagne): Campagne
+    {
+        $pdo = DBConnect::getPDO();
+
+        $sql = "SELECT * FROM campagne WHERE `code_campagne` = :code_campagne";
+
+        $sth = $pdo->prepare($sql);
+
+        $sth->bindValue(':code_campagne', $code_campagne);
+
+        $sth->execute();
+
+        $data = $sth->fetch(PDO::FETCH_OBJ);
+
+        if (!$data) {
+
+            throw new Exception('Le code de campagne que vous avez demandé n\'existe pas.');
+        } else {
+
+            $newCampagne = new Campagne();
+
+            $newCampagne->setIdCampagne($data->id_campagne);
+            $newCampagne->setCode_campagne($data->code_campagne);
+            $newCampagne->setNom_campagne($data->nom_campagne);
+
+            return $newCampagne;
+        }
+    }
+
 
     /**
      * Add a new campaign and associate it with multiple apporteur codes
@@ -314,8 +343,6 @@ class CampagneManager
         return true;
     }
 
-
-    
     /**
      * 
      * Deletes a campaign and its associated apporteur relationships.

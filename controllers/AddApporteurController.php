@@ -17,18 +17,18 @@ class AddApporteurController extends AbstractController
     public function handleRequest()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $this->processForm();
+        $processFormResult = [];
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $processFormResult = $this->processForm();
         }
 
-        $this->renderView();
+        $this->renderView($processFormResult);
     }
 
     // Process the form data
     private function processForm()
     {
-
         // Sanitize and retrieve the input data
         $codeApporteur = filter_input(INPUT_POST, 'code_apporteur', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -40,6 +40,14 @@ class AddApporteurController extends AbstractController
         if (empty($this->errors)) {
             $this->addApporteur($codeApporteur, $nomApporteur);
         }
+
+        $result = [
+            'codeApporteur' => $codeApporteur,
+            'nomApporteur' => $nomApporteur
+        ];
+
+        return $result;
+
     }
 
     // Validate the input data
@@ -94,8 +102,9 @@ class AddApporteurController extends AbstractController
         }
     }
 
-    private function renderView()
+    private function renderView($data)
     {
+        extract($data);
         $addApporteurController = $this; // Pass the current instance
         include __DIR__ . '/../views/templates/header.php';
         include __DIR__ . '/../views/addApporteur.php';

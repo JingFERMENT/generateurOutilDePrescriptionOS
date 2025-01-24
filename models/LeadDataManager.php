@@ -5,7 +5,6 @@ require_once(__DIR__ . '/../config/autoload.php');
 ini_set('SMTP', $_ENV['SMTP']);
 ini_set('smtp_port', $_ENV['smtp_port']);
 
-
 class LeadDataManager
 {
     /**

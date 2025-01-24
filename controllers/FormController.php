@@ -40,7 +40,8 @@ class FormController extends AbstractController
             }
         } else {
             $campagnes = CampagneManager::getAllCodesCampagne();
-            $this->renderView(['campagnes' => $campagnes, 'idCampagne' => $idCampagne]);
+            
+            $this->renderView(['campagnes' => $campagnes, 'id_campagne' => $idCampagne]);
         }
     }
 
@@ -57,8 +58,9 @@ class FormController extends AbstractController
             filter_input(INPUT_POST, 'id_campagne', FILTER_SANITIZE_SPECIAL_CHARS),
             $errors
         );
-
         
+        // $campagne = CampagneManager::getCampagneById($idCampagne);
+            
         $codeApporteur = $this->validateCodeApporteur(
             filter_input(INPUT_POST, 'code_apporteur', FILTER_SANITIZE_SPECIAL_CHARS),
             $idCampagne,
@@ -79,9 +81,9 @@ class FormController extends AbstractController
             'msg' => $this->msg,
             'id_part' => $idPart ?? '',
             'id_campagne' => $idCampagne ?? '',
+            //'campagne' =>$campagne,
             'code_apporteur' => $codeApporteur ?? '',
             'infos' => $infos ?? '',
-            'retour' => $this->retour ?? '',
         ]);
     }
 
