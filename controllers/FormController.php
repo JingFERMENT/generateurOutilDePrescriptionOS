@@ -59,11 +59,12 @@ class FormController extends AbstractController
             $errors
         );
         
-        // $campagne = CampagneManager::getCampagneById($idCampagne);
-            
+        $campagne = CampagneManager::getCampagneById($idCampagne);
+        $reallyIdCampagne = $campagne->getIdCampagne();
+
         $codeApporteur = $this->validateCodeApporteur(
             filter_input(INPUT_POST, 'code_apporteur', FILTER_SANITIZE_SPECIAL_CHARS),
-            $idCampagne,
+            $reallyIdCampagne,
             $errors
         );
 
@@ -81,7 +82,6 @@ class FormController extends AbstractController
             'msg' => $this->msg,
             'id_part' => $idPart ?? '',
             'id_campagne' => $idCampagne ?? '',
-            //'campagne' =>$campagne,
             'code_apporteur' => $codeApporteur ?? '',
             'infos' => $infos ?? '',
         ]);
@@ -114,7 +114,6 @@ class FormController extends AbstractController
     private function validateIdCampagne($idCampagne, &$errors)
     {
        
-       
         if (empty($idCampagne)) {
             $errors['nom_campagne'] = 'Ce champ est obligatoire';
             return null;
@@ -138,8 +137,7 @@ class FormController extends AbstractController
             $errors['nom_campagne'] = 'Veuillez sélectionner un modif de la demande.';
         } else {
             $apporteurs = CampagneManager::getAllApporteurByCodeCampagne($idCampagne);
-         
-            if (empty($codeApporteur) && (count($apporteurs) ===0 )) {
+            if (empty($codeApporteur) && (count($apporteurs) > 1 )) {
                 $errors['code_apporteur'] = 'Veuillez sélectionner un nom d\'apporteur';
             }
             return $codeApporteur;
