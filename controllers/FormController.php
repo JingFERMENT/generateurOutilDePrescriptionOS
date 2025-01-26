@@ -40,7 +40,6 @@ class FormController extends AbstractController
             }
         } else {
             $campagnes = CampagneManager::getAllCodesCampagne();
-            
             $this->renderView(['campagnes' => $campagnes, 'id_campagne' => $idCampagne]);
         }
     }
@@ -58,15 +57,19 @@ class FormController extends AbstractController
             filter_input(INPUT_POST, 'id_campagne', FILTER_SANITIZE_SPECIAL_CHARS),
             $errors
         );
-        
-        $campagne = CampagneManager::getCampagneById($idCampagne);
-        $reallyIdCampagne = $campagne->getIdCampagne();
 
-        $codeApporteur = $this->validateCodeApporteur(
-            filter_input(INPUT_POST, 'code_apporteur', FILTER_SANITIZE_SPECIAL_CHARS),
-            $reallyIdCampagne,
-            $errors
-        );
+        if ($idCampagne) {
+            $campagne = CampagneManager::getCampagneById($idCampagne);
+            
+            $reallyIdCampagne = $campagne->getIdCampagne();
+
+            $codeApporteur = $this->validateCodeApporteur(
+                filter_input(INPUT_POST, 'code_apporteur', FILTER_SANITIZE_SPECIAL_CHARS),
+                $reallyIdCampagne,
+                $errors
+            );
+        }
+
 
         $infos = $this->validateInfos(
             filter_input(INPUT_POST, 'infos', FILTER_SANITIZE_SPECIAL_CHARS),
@@ -81,7 +84,7 @@ class FormController extends AbstractController
             'errors' => $errors,
             'msg' => $this->msg,
             'id_part' => $idPart ?? '',
-            'id_campagne' => $idCampagne ?? '',
+            'id_campagne' => $reallyIdCampagne ?? '',
             'code_apporteur' => $codeApporteur ?? '',
             'infos' => $infos ?? '',
         ]);
@@ -113,36 +116,28 @@ class FormController extends AbstractController
      */
     private function validateIdCampagne($idCampagne, &$errors)
     {
-       
+        
         if (empty($idCampagne)) {
             $errors['nom_campagne'] = 'Ce champ est obligatoire';
-            return null;
-        } 
-        
+            return $idCampagne;
+        }
+
         if (!CampagneManager::isExistIdCampagne($idCampagne)) {
             $errors['nom_campagne'] = 'Votre choix est invalide';
             return null;
-        } 
-        
+        }
+
         $campagne = CampagneManager::getCodeCampagneById($idCampagne);
         return $campagne->getCode_Campagne();
-        
-       
     }
 
     private function validateCodeApporteur($codeApporteur, $idCampagne, &$errors)
     {
-
-        if(empty($idCampagne)) {
-            $errors['nom_campagne'] = 'Veuillez sélectionner un modif de la demande.';
-        } else {
-            $apporteurs = CampagneManager::getAllApporteurByCodeCampagne($idCampagne);
-            if (empty($codeApporteur) && (count($apporteurs) > 1 )) {
+        $apporteurs = CampagneManager::getAllApporteurByCodeCampagne($idCampagne);
+        if (empty($codeApporteur) && (count($apporteurs) > 1)) {
                 $errors['code_apporteur'] = 'Veuillez sélectionner un nom d\'apporteur';
-            }
-            return $codeApporteur;
         }
-        
+        return $codeApporteur; 
     }
 
     private function validateInfos($infos, &$errors)
@@ -168,7 +163,7 @@ class FormController extends AbstractController
             $this->msg = "Votre demande a bien été prise en compte.";
 
             $_SESSION['msg'] = $this->msg;
-            
+
             $logManager = new LogManager();
             $recipient = $_ENV['recipient'];
             $logManager->logMailSent($recipient, $_SESSION['username']);
@@ -182,18 +177,18 @@ class FormController extends AbstractController
 
     private function renderView(array $data = [])
     {
+       
         extract($data);
         $formController = $this;
 
-       $msg = null ;
+        $msg = null;
         if (isset($_SESSION['msg'])) {
-            $msg = $_SESSION['msg']; 
+            $msg = $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
         include __DIR__ . '/../views/templates/header.php';
         include __DIR__ . '/../views/form.php';
         include __DIR__ . '/../views/templates/footer.php';
- 
     }
 
     /**

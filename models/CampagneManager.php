@@ -59,7 +59,7 @@ class CampagneManager
         }
     }
 
-    public static function getCampagneById(string $code_campagne): Campagne
+    public static function getCampagneById(?string $code_campagne): Campagne
     {
         $pdo = DBConnect::getPDO();
 
